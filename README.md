@@ -1,60 +1,107 @@
-# IAM Failure Simulator
+IAM Failure Simulator
+====================
 
-IAM Failure Simulator is a lightweight security analysis tool that explains how
-AWS IAM misconfigurations can realistically evolve into security incidents.
+IAM Failure Simulator is a portfolio project designed to explain how IAM misconfigurations can evolve into real security incidents over time.
 
-This project focuses on **explainability** rather than raw detection.
+Instead of focusing on detection accuracy, this tool focuses on explainability and decision-making:
+why a small IAM mistake becomes dangerous, and how that risk unfolds as a story.
 
----
+This project is intentionally scoped for clarity and communication, not for production deployment.
 
-## What this tool does
 
-- Analyzes IAM Users and Roles
-- Identifies over-privileged permissions
-- Maps risky permissions to realistic incident paths
-- Explains where incidents could have been prevented
+Why this project exists
+----------------------
 
-The output is designed to be understandable by both engineers and non-engineers.
+IAM is one of the most common root causes of cloud security incidents.
+In many cases, the problem is not technical complexity, but the lack of clear explanation before an incident happens.
 
----
+As someone with a sales background working closely with engineers and security teams,
+I observed that security often fails at the communication layer.
 
-## Why this project exists
+This tool was built to demonstrate how IAM risks can be explained clearly to both technical
+and non-technical stakeholders, enabling better decisions before incidents occur.
 
-Many security incidents are not caused by missing tools,
-but by misaligned understanding between technical teams and decision makers.
 
-As a former sales professional, I observed that:
-- Risks were detected but not acted upon
-- IAM warnings lacked context and urgency
-- Security decisions failed due to poor explanation
+What this tool does
+-------------------
 
-This tool was built to close that gap.
+- Models IAM misconfigurations as time-based failure scenarios
+- Explains how permissions, principals, and policies interact over time
+- Focuses on "how it becomes an incident" rather than just flagging issues
+- Demonstrates explainable security design using Python and AWS IAM concepts
 
----
+This is not a detection tool.
+It is an explanation and simulation tool.
 
-## Intended audience
 
-- Cloud / Platform Engineers
-- Security Engineers
-- Solutions Architects
+Design principles
+-----------------
+
+- Explainability over detection accuracy
+- Decision-making support over alert generation
+- Simple structure that prioritizes intent and readability
+- Designed as a learning and portfolio artifact, not a production system
+
+
+Project structure
+-----------------
+
+src/
+  Core logic for IAM failure simulation
+
+rules/
+  IAM misconfiguration and failure scenario definitions
+
+examples/
+  Example scenarios and reference outputs (optional / future use)
+
+simulate.py
+  Entry point for running simulations
+
+requirements.txt
+  Python dependencies
+
+README.md
+  Project overview and design intent
+
+
+Technology
+----------
+
+- Python
+- AWS IAM
+- boto3
+
+Future extensions may include CloudTrail-based action mapping and managed policy expansion,
+but these are intentionally out of scope for the current version.
+
+
+Who this project is for
+-----------------------
+
+- Security Engineers (Junior to Mid)
+- Solutions Engineers / Architects
+- Cloud and Platform Security roles
 - Technical Sales and Security Advisors
 
-Especially those responsible for **explaining risk**, not just detecting it.
+Especially relevant for roles that require explaining security risks clearly,
+not just implementing controls.
 
----
 
-## Disclaimer
+About the author
+----------------
 
-- This tool does NOT perform any attacks
-- All incident paths are analytical simulations
-- Intended for educational and preventive purposes only
+This project was created as part of a career transition from sales to security and cloud-related roles.
 
----
+The focus is on combining technical understanding with clear communication,
+demonstrating how security risks can be explained as stories that support better decisions.
 
-## 日本語概要（簡易）
 
-IAM Failure Simulator は、AWS IAM の設定が
-どのように現実的なセキュリティ事故へ発展しうるかを
-「説明可能な形」で可視化する分析ツールです。
+Status
+------
 
-検知ではなく、理解と意思決定を目的としています。
+This project is intentionally not production-ready.
+It prioritizes structure, intent, and explainability over full implementation.
+
+That choice reflects real-world security work,
+where understanding and communicating risk is often as important as building detection systems.
