@@ -1,0 +1,81 @@
+scenarios:
+  - id: CICD_KEY_LEAK
+    title: "CI/CD access key leak leads to account takeover"
+    preconditions:
+      any:
+        - has_access_keys: true
+    risk_triggers:
+      any:
+        - perm_has_wildcard_admin: true
+        - perm_contains_actions:
+            - iam:CreateAccessKey
+            - iam:AttachRolePolicy
+            - iam:AttachUserPolicy
+    timeline:
+      - day: 0
+        event: "Automation principal exists with long-lived credentials"
+      - day: 30
+        event: "No key rotation or review performed"
+      - day: 45
+        event: "Access key is leaked (simulated)"
+      - day: 46
+        event: "Attacker escalates privileges and persists"
+    preventable_points:
+      - "Use short-lived credentials (STS) for CI/CD"
+      - "Rotate or remove long-lived access keys"
+      - "Restrict IAM write permissions"
+
+  - id: ASSUMEROLE_LATERAL
+    title: "Overly broad trust policy enables lateral movement"
+    preconditions:
+      any:
+        - trust_is_broad: true
+    risk_triggers:
+      any:
+        - perm_contains_actions:
+            - sts:AssumeRole
+    timeline:
+      - day: 0
+        event: "Role trust policy allows broad principals"
+      - day: 7
+        event: "Unexpected principal assumes the role"
+      - day: 8
+        event: "Attacker pivots to other roles"
+    preventable_points:
+      - "Restrict trust policy principals"
+      - "Use conditions such as externalId or audience"
+
+  - id: AUDIT_DISABLE
+    title: "Audit logging can be disabled"
+    risk_triggers:
+      any:
+        - perm_contains_actions:
+            - cloudtrail:StopLogging
+            - cloudtrail:DeleteTrail
+            - logs:DeleteLogGroup
+    timeline:
+      - day: 0
+        event: "Principal has permissions to disable logging"
+      - day: 1
+        event: "Attacker disables audit logs"
+    preventable_points:
+      - "Explicitly deny CloudTrail modification"
+      - "Protect logs in separate account"
+
+  - id: PRIV_ESC_VIA_IAM
+    title: "Privilege escalation via IAM policy manipulation"
+    risk_triggers:
+      any:
+        - perm_contains_actions:
+            - iam:CreatePolicyVersion
+            - iam:SetDefaultPolicyVersion
+            - iam:AttachRolePolicy
+            - iam:PutRolePolicy
+    timeline:
+      - day: 0
+        event: "Principal can modify IAM policies"
+      - day: 1
+        event: "Attacker escalates to admin privileges"
+    preventable_points:
+      - "Separate IAM admin duties"
+      - "Use permission boundaries"
