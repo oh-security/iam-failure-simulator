@@ -75,8 +75,9 @@ Day 46:
 Day 47:
   Audit logging disabled
 
-Sample output
+## Sample output
 
+```json
 {
   "scenario_id": "CICD_KEY_LEAK",
   "severity": "HIGH",
