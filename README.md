@@ -1,139 +1,56 @@
 # IAM Failure Simulator
 
-> Simulating how IAM misconfigurations realistically evolve into security incidents — and how they could have been prevented.
-
----
-
-## What this tool does
-
-**IAM Failure Simulator** is a security analysis tool that models how IAM misconfigurations can turn into real-world security incidents **over time**.
-
-Instead of only flagging risky permissions, this tool:
-- Simulates **incident timelines**
-- Explains **why each step was possible**
-- Highlights **decision points where incidents could have been prevented**
-
-The goal is not just detection, but **explainable security decision support**.
-
----
-
-## Why this matters
-
-Many IAM-related incidents are not caused by a lack of security tools, but by:
-- Temporary workarounds becoming permanent
-- Overly broad permissions added under time pressure
-- Risks being technically detected but not *understood*
-
-As a former sales professional, I repeatedly saw how security risks fail to translate into actionable decisions.
-
-This project was built to bridge that gap:
-**turning IAM configurations into incident stories that decision-makers can actually understand.**
-
----
-
-## How it works (high level)
-
-1. **Collects real AWS data** using boto3  
-   - IAM Users / Roles
-   - Inline and attached policies
-   - Trust policies (AssumeRole)
-   - CloudTrail events (contextual signals)
-
-2. **Evaluates effective permissions**
-   - Identifies over-privileged actions
-   - Detects broad trust boundaries
-   - Highlights escalation capabilities
-
-3. **Simulates incident scenarios**
-   - CI/CD credential leakage
-   - Lateral movement via AssumeRole
-   - Privilege escalation through IAM policy manipulation
-   - Audit log disabling
-
-4. **Outputs explainable findings**
-   - Timeline of how the incident unfolds
-   - Evidence tied to actual permissions
-   - Clear prevention points
-
----
-
-## Example scenario (simplified)
-
-```text
-Day 0:
-  CI/CD role created with broad permissions (temporary workaround)
-
-Day 30:
-  No review or permission reduction performed
-
-Day 45:
-  Access key leaked from automation logs
-
-Day 46:
-  Attacker escalates privileges via IAM
-
-Day 47:
-  Audit logging disabled
+This is a minimal README to verify Markdown rendering.
 
 ## Sample output
 
 ```json
 {
-  "scenario_id": "CICD_KEY_LEAK",
-  "severity": "HIGH",
-  "principal": {
-    "type": "Role",
-    "name": "ci-cd-role"
-  },
-  "timeline": [
-    {"day": 0, "event": "Automation principal exists with long-lived credentials"},
-    {"day": 45, "event": "Access key is leaked"},
-    {"day": 46, "event": "Privilege escalation and persistence"}
-  ],
-  "preventable_points": [
-    "Use short-lived credentials (STS)",
-    "Restrict IAM write permissions"
-  ]
+  "ok": true
 }
-
 Intended audience
+This text must be normal (not inside a code block).
 
-This tool is designed for:
+yaml
+コードをコピーする
 
-Security Engineers
+---
 
-Cloud / Platform Engineers
+## 3) Commit changes
+Commitメッセージは適当でOK（例：`Reset README`）。
 
-Solutions Architects
+---
 
-Technical Sales & Security Advisors
+# ✅ 成功判定（これだけ見る）
+README表示で：
 
-Especially those responsible for explaining risk, not just detecting it.
+- `Sample output` の **JSON部分だけ**が灰色のコードブロック
+- `## Intended audience` とその文章が **普通の表示**
 
-Philosophy
+なら成功です。
 
-Most security tools answer "Is this risky?"
-This tool answers "How did this become an incident?"
+---
 
-Security improves when risks are understood, not just reported.
+# ここでまだダメなら「原因はREADMEではない」
+その場合はほぼ確実に：
 
-Disclaimer
+- READMEが `README.md` じゃない（例：`.txt`付き）
+- GitHubが別ファイルをREADME扱いしている
+- もしくは編集しているファイルが違う
 
-This tool does not execute attacks
+なので、**次は確認だけ**します。
 
-All incident timelines are simulated
+✅ GitHubのファイル一覧で、READMEはこう表示されていますか？
 
-Findings are intended for educational and preventive analysis
+- `README.md`（これだけ）  
+ではなく  
+- `README.md.txt` や `README.txt` になっていませんか？
 
-日本語概要（簡易）
+---
 
-IAM Failure Simulator は、AWS IAM の設定ミスが
-「どのような意思決定の積み重ねで事故に発展するか」を
-時系列で説明するセキュリティ分析ツールです。
+# 次の返事で教えて
+1) いま貼った最小READMEで表示は直った？（はい/いいえ）  
+2) GitHubの一覧でREADMEのファイル名は正確に何？（コピペでOK）
 
-検知だけでなく、
+これで100%潰せます。
 
-なぜ起きたのか
-
-どこで防げたのか
-を可視化することを目的としています。
